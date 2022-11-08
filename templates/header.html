@@ -1,0 +1,268 @@
+<!doctype html>
+<html lang="en">
+  <head>
+
+    <title>Twitter Data Analysis</title>
+
+    {% block head_meta %}
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    {% endblock %}
+
+    {% block head_css %}
+    <link rel="canonical" href="https://getbootstrap.com/docs/5.0/examples/carousel-rtl/">
+    <link href="https://getbootstrap.com/docs/5.0/dist/css/bootstrap.rtl.min.css" rel="stylesheet">
+    <link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css'>
+    {% endblock %}
+
+    <style>
+      footer{
+         position:fixed;
+         bottom:0;
+         left:0;
+      }
+:root{
+  --black: black;
+  --white: #fff;
+  --grey: hsl(214, 7%, 47%);
+  --light-grey: #eee;
+  --twitter-blue: #0084b4;
+  --font-large: 20px;
+  --font-small: 14px;
+}
+
+.twitter-card{
+  width: 600px;
+  min-height: 450px;
+  height:auto;
+  border: 1px solid var(--light-grey);
+  border-radius: 6px;
+  display: flex;
+  flex-direction: column;
+  padding: 2rem;
+  background: var(--white);
+  box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+  margin:40px auto 100px auto;
+}
+
+.row-top{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1.2rem;
+}
+
+.user-image{
+  height: 70px;
+  width: 70px;
+  margin-right: 15px;
+}
+
+.profile-user > * {
+  display: block;
+}
+
+.user-wrapper{
+  display: flex;
+  align-items: center;
+}
+
+.follow{
+  padding: 10px 30px;
+  border: 1px solid var(--twitter-blue);
+  border-radius: 30px;
+  color: var(--twitter-blue);
+  font-weight:bold;
+  transition: all .2s ease-out;
+}
+
+.follow:hover{
+  background-color: var(--twitter-blue);
+  color: var(--white);
+}
+
+.user{
+  font-size: var(--font-large);
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.username{
+  font-size: var(--font-small);
+  color: var(--grey);
+}
+
+.profile-bio{
+  width: 90%;
+  margin-bottom: 1rem;
+}
+
+.row-middle{
+  display: flex;
+  flex-direction: column;
+}
+
+.profile-location{
+  font-size: var(--font-small);
+  color: var(--grey);
+  margin-bottom: 10px;
+}
+
+.profile-location > i, .profile-website > i {
+   font-size: 1rem;
+   color: var(--grey);
+   margin-right: 5px;
+}
+
+.profile-website > i{
+  margin-right: 2px;
+}
+
+.profile-website{
+  margin-bottom: 1.2rem;
+}
+
+.profile-website > a{
+  text-decoration: none;
+  font-size: var(--font-small);
+  color: var(--twitter-blue);
+}
+
+.row-bottom{
+  border-top: 1px solid #ccc;
+  padding-top: 1rem;
+  display: flex;
+  justify-content: flex-start;
+}
+
+.row-bottom > *:not(:first-child) {
+  padding-left: 6rem;
+}
+
+.followers-count, .following-count, .likes-count{
+  color: var(--grey);
+}
+
+.count-meta{
+  display: block;
+  font-size: 20px;
+  font-weight: bold;
+  margin-top: 5px;
+  color: var(--black);
+}
+.bubble {
+  width: 100%;
+  padding: .5em 1em;
+  line-height: 1.4em;
+  padding: 20px;
+  background-color: #ecf0f1;
+  position: relative;
+  -webkit-border-radius: 8px;
+  -moz-border-radius: 8px;
+  -ms-border-radius: 8px;
+  -o-border-radius: 8px;
+  border-radius: 8px;
+  text-align: left;
+  display: inline-block; }
+
+.bubble-container {
+  width: 80%;
+  display: block;
+  position: relative;
+  padding-left: 20px;
+  vertical-align: top;
+  display: inline-block; }
+
+.arrow {
+  content: '';
+  display: block;
+  position: absolute;
+  left: 12px;
+  bottom: 25%;
+  height: 0;
+  width: 0;
+  border-top: 20px solid transparent;
+  border-bottom: 20px solid transparent;
+  border-right: 20px solid #ecf0f1; }
+
+.timeline {
+  list-style-type: none;
+  display: block;
+  margin: auto;
+  padding-bottom: 2em;
+  }
+  .timeline li {
+    padding: 1em 0;
+    }
+
+.avatar {
+  display: inline-block;
+  vertical-align: top;
+  position: relative;
+  overflow: hidden;
+  margin-left: 2%;
+  }
+  .avatar img {
+    width: 75px;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    -ms-border-radius: 50%;
+    -o-border-radius: 50%;
+    border-radius: 50%;
+    border: 5px solid #ecf0f1;
+    position: relative;
+    }
+   li::marker {
+   display:none;
+  }
+  .tweet_url{
+  text-decoration:none;
+  color:inherit;
+  }
+  .project_name{
+  color:white;
+  font-weight:800;
+  }
+    </style>
+    {% block head_javascript %}
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
+
+{% endblock %}
+
+
+  </head>
+  <body>
+    
+<header>
+ <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="{{ url_for('home1') }}"><img src="{{url_for('static', filename='twi.png')}}" width="50px" alt="TDA"></a>
+    <span class="project_name">TDA</span>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#collapsibleNavbar">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse justify-content-end" id="collapsibleNavbar">
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <a class="nav-link" href="{{ url_for('my_form5') }}">Tweets by username</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{{ url_for('my_form2') }}">Tweets by hashtag</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{{ url_for('my_form3') }}">Trends by location</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{{ url_for('my_form4') }}">Sentiment analysis</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+</header>
+
+<main>
+
+<div class="container mb-5">

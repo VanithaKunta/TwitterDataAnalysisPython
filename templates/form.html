@@ -1,0 +1,98 @@
+<html>
+    <head>
+	<style>
+table, th, td {
+  border: 1px solid black;
+}
+
+
+
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: #333;
+}
+
+li {
+  float: left;
+}
+
+li a {
+  display: block;
+  color: white;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+li a:hover {
+  background-color: #111;
+}
+
+
+
+
+</style>
+        <title>{{ title }} Sentiment Analysis</title>
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+    </head>
+    <body>
+        <h1>Twitter Data Analyzer</h1>
+
+<ul>
+  <li><a class="active" href="home.html">Home</a></li>
+  <li><a href="form.html">Current trending Topics</a></li>
+  <li><a href="form5.html">Search Tweets by Name</a></li>
+  <li><a href="form2.html">Search Tweets by Hashtag</a></li>
+  <li><a href="form3.html">Search Tweets by Location</a></li>
+  <li><a href="form4.html">Sentiment Analysis</a></li>
+</ul><br><br>
+
+
+        <form method="POST">
+            <textarea name="text1" placeholder="Say Something: ...." rows="10" cols="109"></textarea><br><br>
+
+            <input class="example_a" type="submit">
+        </form>
+        {% if final %}
+        <div>
+            <h2>The Sentiment of</h2> '{{ text1 }}' <h2>is {{ final *100}}% positive !</h2>
+			<h2>Score table</h2>
+
+
+
+<table style="width:100%">
+  <tr>
+    <th>SENTIMENT METRIC</th>
+    <th>SCORE</th> 
+  </tr>
+  <tr>
+    <td>Positive</td>
+    <td>{{text2}}</td>
+    
+  </tr>
+  <tr>
+    <td>Neutral</td>
+    <td>{{text3}}</td>
+    
+  </tr>
+  <tr>
+    <td>Negative</td>
+    <td>{{text5}}</td>
+    
+  </tr>
+  <tr>
+    <td>Compound</td>
+    <td>{{text4}}</td>
+    
+  </tr>
+</table>
+            {% else %}
+            <p></p>
+            {% endif %}
+        </div>
+    </body>
+</html>
+

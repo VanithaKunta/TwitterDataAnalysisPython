@@ -1,0 +1,44 @@
+{% include "header.html" %}
+{% block content %}
+
+{% if final %}
+
+		<ul class="timeline mt-4">
+			{% for tweet in response %}
+
+			<li>
+				<div class="avatar">
+					<a href="{{tweet.user.url}}" target="_blank"><img src={{tweet.user.profile_image_url}}></a>
+					<div class="hover">
+						<div class="icon-twitter"></div>
+					</div>
+				</div>
+				<div class="bubble-container">
+					<div class="bubble">
+					<div class="retweet">
+						<div class="icon-retweet"></div>
+					</div>
+						{{tweet.text}}
+						<div class="over-bubble">
+							<div class="icon-mail-reply action"></div>
+							<div class="icon-retweet action"></div>
+							<div class="icon-star"></div>
+						</div>
+					</div>
+
+					<div class="arrow"></div>
+				</div>
+			</li>
+			                              {% endfor %}
+
+		</ul>
+
+
+{% else %}
+<p></p>
+{% endif %}
+
+{% endblock %}
+{% include "footer.html" %}
+
+
