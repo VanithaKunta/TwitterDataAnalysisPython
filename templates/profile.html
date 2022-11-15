@@ -11,24 +11,25 @@
               </div>
           </form>
         </div>
-        {% if final %}
 
-
+{% if final == 1 %}
 <div class="twitter-card">
-  <div class="row-top">
-    <div class="user-wrapper">
+  <div>
+     <div><img class="img-fluid" src={{user_details.profile_banner_url}}></div>
+    <div class="user-wrapper mt-3">
        <span class="user-image"><img class="rounded-circle mb-3" width="70px" src={{user_details.profile_image_url}}></span>
        <div class="profile-user">
+           <a href="https://twitter.com/{{user_details.screen_name}}" class="tweet_link" target="_blank">
            <span class="user">
                {{user_details.name}}
                {% if user_details.verified == True %}
                <i class='bi bi-check-circle-fill'></i>
                {% endif %}
            </span>
+               </a>
            <span class="username">@{{user_details.screen_name}}</span>
        </div>
     </div>
-     <span class="follow">Follow</span>
   </div>
   <p class="profile-bio">{{user_details.description}}</p>
   <div class="row-middle">
@@ -41,7 +42,7 @@
     </span>
     <span class="profile-website">
       <i class="bi bi-link"></i>
-      <a href="#">{{user_details.url}}</a>
+      <a href="{{user_details.url}}" target="_blank">{{user_details.url}}</a>
     </span>
       <div class="fw-light mb-3">Joined on {{user_details.created_at}}</div>
 
@@ -61,21 +62,24 @@
       <span class="count-meta">{{user_details.listed_count}}</span>
     </span>
   </div>
-  <div class="row-bottom">
-
-      {% if user_details.status %}
-      <div class="fw-light fst-italic  mt-3">"{{user_details.status.text}}"</div>
-
-      {% else %}
-      <div class="fw-light mt-3">No tweets by the user</div>
-
-      {% endif %}
+  <div class="row-bottom-2">
+      {% for i in range(0,len) %}
+      <a class="tweet_link" target="_blank" href="https://twitter.com/twitter/statuses/{{tweets_25[i][1]}}">
+         <blockquote class="blockquote">
+      <svg viewBox="0 0 512 512" width="7" title="quote-left" class="quote-icon">
+        <path d="M464 256h-80v-64c0-35.3 28.7-64 64-64h8c13.3 0 24-10.7 24-24V56c0-13.3-10.7-24-24-24h-8c-88.4 0-160 71.6-160 160v240c0 26.5 21.5 48 48 48h128c26.5 0 48-21.5 48-48V304c0-26.5-21.5-48-48-48zm-288 0H96v-64c0-35.3 28.7-64 64-64h8c13.3 0 24-10.7 24-24V56c0-13.3-10.7-24-24-24h-8C71.6 32 0 103.6 0 192v240c0 26.5 21.5 48 48 48h128c26.5 0 48-21.5 48-48V304c0-26.5-21.5-48-48-48z" />
+      </svg>
+          <p class="quote">
+              {{tweets_25[i][0]}}
+          </p>
+             <hr>
+        </blockquote>
+</a>
+      {% endfor %}
+  </div>
 
 </div>
-</div>
 
-
-    {% else %}
-    {% endif %}
+{% endif %}
 {% endblock %}
 {% include "footer.html" %}

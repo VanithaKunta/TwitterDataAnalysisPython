@@ -17,11 +17,14 @@
     {% endblock %}
 
     <style>
-      footer{
-         position:fixed;
-         bottom:0;
-         left:0;
-      }
+    @import url("https://fonts.googleapis.com/css?family=Lora:400,400i,700");
+
+body {
+
+  font-family: Lora, sans-serif;
+
+}
+
 :root{
   --black: black;
   --white: #fff;
@@ -33,7 +36,7 @@
 }
 
 .twitter-card{
-  width: 600px;
+  width: 900px;
   min-height: 450px;
   height:auto;
   border: 1px solid var(--light-grey);
@@ -96,6 +99,7 @@
 .profile-bio{
   width: 90%;
   margin-bottom: 1rem;
+  margin-top:12px;
 }
 
 .row-middle{
@@ -135,7 +139,10 @@
   display: flex;
   justify-content: flex-start;
 }
-
+.row-bottom-2{
+border-top: 1px solid #ccc;
+  padding-top: 1rem;
+}
 .row-bottom > *:not(:first-child) {
   padding-left: 6rem;
 }
@@ -167,7 +174,7 @@
   display: inline-block; }
 
 .bubble-container {
-  width: 80%;
+  width: 84%;
   display: block;
   position: relative;
   padding-left: 20px;
@@ -224,10 +231,169 @@
   color:white;
   font-weight:800;
   }
+  .wordcloud{
+   box-shadow:0px 0px 2px 2px rgb(0 0 0 / 20%);
+   margin-top:20px;
+  }
+  .tweet_link,.tweet_link:hover,.tweet_link:active,.tweet_link:visited{
+   color:#000;
+   text-decoration:none;
+  }
+  .navbar-dark .navbar-nav .nav-link.active, .navbar-dark .navbar-nav .show>.nav-link{
+   font-weight:500;
+  }
+
+
+
+.custom-table-container {
+  max-width: 1000px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+.responsive-table{
+ padding:0px;
+}
+.responsive-table  li {
+    border-radius: 30px;
+    padding: 12px 15px;
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 25px;
+  }
+ .responsive-table .table-header {
+    background-color: #212529;
+    font-size: 16px;
+    text-transform: uppercase;
+    color: #fff;
+    text-align: center;
+    font-weight: 600;
+  }
+  .responsive-table .table-row {
+    background-color: #ffffff;
+    box-shadow: 0px 0px 9px 0px rgba(0,0,0,0.2);
+  }
+  .responsive-table .col-12 {
+    flex-basis: 100%;
+  }
+  .responsive-table .table-row:hover{
+    box-shadow: 0px 0px 9px 0px rgb(0 0 0 / 0.4)
+  }
+ form{
+ max-width:600px !important;
+ margin: 0 auto;
+ }
+ .quote {
+  line-height: 1.4;
+  font-style: italic;
+  text-align:justify;
+  font-size:14px;
+}
+
+.author {
+  float: right;
+  font-size: 1.1rem;
+  font-weight: bold;
+}
+
+.quote-icon {
+  margin-bottom: 10px;
+}
+
+.blockquote hr {
+  margin-top: 25px;
+  margin-bottom:25px;
+}
+
+.vc{
+display: flex;
+  align-items: center;
+}
+.table{
+   table-layout: fixed;
+}
+
+
+.custom-tab {
+  float: left;
+  border: 1px solid #ccc;
+  background-color: #f1f1f1;
+  width: 15%;
+  min-height: 800px;
+}
+
+/* Style the buttons inside the tab */
+.custom-tab button {
+  display: block;
+  background-color: inherit;
+  color: black;
+  padding: 22px 16px;
+  width: 100%;
+  border: none;
+  outline: none;
+  text-align: left;
+  cursor: pointer;
+  transition: 0.3s;
+  font-size: 17px;
+}
+
+/* Change background color of buttons on hover */
+.custom-tab button:hover {
+  background-color: #ddd;
+}
+
+/* Create an active/current "tab button" class */
+.custom-tab button.active {
+  background-color: #212529;
+  color:#fff;
+
+}
+
+/* Style the tab content */
+.custom-tabcontent {
+  float: left;
+  padding: 0px 12px;
+  border: 1px solid #ccc;
+  width: 85%;
+  border-left: none;
+  min-height: 800px;
+}
+.custom-tab a{
+ text-decoration:none;
+}
+
+html, body {
+  height: 100%;
+}
+body {
+  display: flex;
+  flex-direction: column;
+}
+.main-wrapper {
+  flex: 1 0 auto;
+  margin-top:30px;
+  margin-bottom:30px;
+}
+footer {
+  flex-shrink: 0;
+}
     </style>
+
     {% block head_javascript %}
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script>
+      $(function(){
+        var current = location.pathname;
+        $('.navbar-nav li a').each(function(){
+            var $this = $(this);
+            if($this.attr('href').indexOf(current) !== -1){
+                $this.addClass('active');
+            }
+        })
+      })
+    </script>
 
 {% endblock %}
 
@@ -238,24 +404,25 @@
 <header>
  <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
   <div class="container-fluid">
-    <a class="navbar-brand" href="{{ url_for('home1') }}"><img src="{{url_for('static', filename='twi.png')}}" width="50px" alt="TDA"></a>
-    <span class="project_name">TDA</span>
+    <a class="navbar-brand" href="{{ url_for('home1') }}"><img src="{{url_for('static', filename='twi.png')}}" width="50px" alt="TDA">
+     <span class="project_name">TDA</span>
+    </a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#collapsibleNavbar">
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse justify-content-end" id="collapsibleNavbar">
       <ul class="navbar-nav">
         <li class="nav-item">
-          <a class="nav-link" href="{{ url_for('my_form5') }}">Tweets by username</a>
+          <a class="nav-link" href="{{ url_for('hashtag') }}">Tweets by hashtag</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="{{ url_for('my_form2') }}">Tweets by hashtag</a>
+          <a class="nav-link" href="{{ url_for('profile') }}">User Profile</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="{{ url_for('my_form3') }}">Trends by location</a>
+          <a class="nav-link" href="{{ url_for('location') }}">Trends by location</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="{{ url_for('my_form4') }}">Sentiment analysis</a>
+          <a class="nav-link" href="{{ url_for('sentiment') }}">Data Visualization</a>
         </li>
       </ul>
     </div>
@@ -263,6 +430,5 @@
 </nav>
 </header>
 
-<main>
-
-<div class="container mb-5">
+<div class="container main-wrapper">
+  <div class="main-content"></div>

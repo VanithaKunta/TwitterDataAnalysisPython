@@ -2,7 +2,6 @@
 {% block content %}
 
 {% if final %}
-
 		<ul class="timeline mt-4">
 			{% for tweet in response %}
 
@@ -13,12 +12,15 @@
 						<div class="icon-twitter"></div>
 					</div>
 				</div>
+				<a href="https://twitter.com/twitter/statuses/{{tweet.id}}" class="tweet_link" target="_blank">
 				<div class="bubble-container">
 					<div class="bubble">
 					<div class="retweet">
 						<div class="icon-retweet"></div>
 					</div>
-						{{tweet.text}}
+
+						{{tweet.full_text}}
+
 						<div class="over-bubble">
 							<div class="icon-mail-reply action"></div>
 							<div class="icon-retweet action"></div>
@@ -27,7 +29,8 @@
 					</div>
 
 					<div class="arrow"></div>
-				</div>
+				 </div>
+				 </a>
 			</li>
 			                              {% endfor %}
 

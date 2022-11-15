@@ -1,0 +1,111 @@
+{% include "header.html" %}
+{% block content %}
+<div class="custom-tab">
+     <a  href="{{ url_for('sentiment') }}"><button class="tablinks active">Sentiment analysis</button></a>
+     <a  href="{{ url_for('favorites_retweets') }}"> <button class="tablinks">Preliminary Analysis</button></a>
+     <a  href="{{ url_for('follower_s') }}"> <button class="tablinks">Network Graph</button></a>
+     <a  href="{{ url_for('tweets_count') }}"> <button class="tablinks">Home Timeline Analysis</button></a>
+     <a  href="{{ url_for('wordcloud') }}"><button class="tablinks">WordCloud</button></a>
+
+</div>
+<div id="v-preliminary-analysis" class="custom-tabcontent">
+        <div class="row mt-5">
+          <form method="POST">
+            <div class="mb-3 mt-3">
+              <input type="text" class="form-control" id="keyword" placeholder="Search using a keyword" name="keyword" required>
+            </div>
+              <div class="text-center">
+                <button type="example_a" class="btn btn-dark mx-auto">Get sentiment analysis</button>
+              </div>
+          </form>
+        </div>
+        {% if final %}
+
+        <div class="row px-0 mt-4">
+            <div class="col-12"><h5>The Sentiment Analysis for the given word "{{keyword}}" is:</h5></div>
+            {% if img_data %}
+            <div class="col-6 mx-auto text-center">
+              <img class="img-fluid sentiment_analysis my-3" src="data:image/jpeg;base64,{{ img_data }}"/>
+            </div>
+            {% endif %}
+            <div class="col-6 vc">
+                <table class="table table-bordered">
+                    <thead class="table-dark">
+                    <tr>
+                        <th>Sentiment Type</th>
+                        <th>Percentage</th>
+                    </tr>
+
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>
+                            Positive
+                        </td>
+                        <td>
+                            {{pos_per}}%
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Negative
+                        </td>
+                        <td>
+                            {{neg_per}}%
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Neutral
+                        </td>
+                        <td>
+                            {{neu_per}}%
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+
+            </div>
+
+            <div class="col-6">
+            <div class="custom-table-container">
+              <ul class="responsive-table">
+                <li class="table-header">
+                  <div class="col col-12">Positive Tweets</div>
+
+                </li>
+                                               {% for tweet in pos_tweets %}
+
+                <li class="table-row">
+                  <div class="col col-12"><a href="https://twitter.com/twitter/statuses/{{tweet.id}}" class="tweet_link" target="_blank">{{tweet.full_text}}</a></div>
+                </li>
+                              {% endfor %}
+
+              </ul>
+            </div>
+                </div>
+            <div class="col-6">
+
+ <div class="custom-table-container">
+              <ul class="responsive-table">
+                <li class="table-header">
+                  <div class="col col-12">Negative Tweets</div>
+
+                </li>
+                                               {% for tweet in neg_tweets %}
+
+                <li class="table-row">
+                  <div class="col col-12"><a href="https://twitter.com/twitter/statuses/{{tweet.id}}" class="tweet_link" target="_blank">{{tweet.full_text}}</a></div>
+                </li>
+                              {% endfor %}
+
+              </ul>
+            </div>
+</div>
+</div>
+</div>
+            {% else %}
+            {% endif %}
+
+{% endblock %}
+{% include "footer.html" %}

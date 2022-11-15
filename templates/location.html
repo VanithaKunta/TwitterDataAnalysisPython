@@ -11,24 +11,32 @@
               </div>
           </form>
         </div>
-        {% if final %}
 
+
+{% if img_data %}
+    <div class="mx-auto text-center" id="word_cloud">
+  <img class="img-fluid" src="data:image/jpeg;base64,{{ img_data }}"/>
+    </div>
+{% endif %}
+        {% if final %}
         <div class="row px-0">
-                    <h4 class="mt-5 px-0 fst-italic">Tweets trending at "{{loc}}" are as follows</h4>
+                    <h4 class="mt-5 px-0 fst-italic">Hashtag trending at "{{loc}}" are as follows</h4>
                     <table class="mt-4 table table-bordered">
                         <thead class="table-dark">
                          <tr>
                             <th>S.No</th>
-                            <th>Tweet</th>
+                            <th>Hashtag</th>
+                             <th>Hashtag Count</th>
                           </tr>
                         </thead>
                         <tbody>
                              {% for tweet in loc_tweets %}
                             <tr>
                                <td>{{loop.index}}</td>
-                               <td>{{tweet}}</td>
+                               <td><a href="{{tweet[1]}}" target="_blank">{{tweet[0]}}</a></td>
+                                <td>{{tweet[2]}}</td>
                             </tr>
-                              {% endfor %}
+                         {% endfor %}
                          </tbody>
                       </table>
             </div>

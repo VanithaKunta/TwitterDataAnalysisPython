@@ -1,0 +1,37 @@
+{% include "header.html" %}
+{% block content %}
+
+        <div class="row mt-5">
+          <form method="POST">
+            <div class="mb-3 mt-3">
+              <input type="text" class="form-control" id="twitter_hashtag" placeholder="Search using hashtag like covid, #covid" name="twitter_hashtag" required>
+            </div>
+              <div class="text-center">
+            <button type="example_a" class="btn btn-dark mx-auto">Get tweets</button>
+              </div>
+          </form>
+        </div>
+        {% if final %}
+
+<div class="custom-table-container mt-5">
+              <ul class="responsive-table">
+                <li class="table-header">
+                  <div class="col col-12">Twitter Trends for the given hashtag "{{hashtag}}" are as follows</div>
+
+                </li>
+                                               {% for tweet in text %}
+
+                <li class="table-row">
+                  <div class="col col-12"><a href="https://twitter.com/twitter/statuses/{{tweet.id}}" class="tweet_link" target="_blank">{{tweet.full_text}}</a></div>
+                </li>
+                              {% endfor %}
+
+              </ul>
+            </div>
+
+
+            {% else %}
+            {% endif %}
+
+{% endblock %}
+{% include "footer.html" %}

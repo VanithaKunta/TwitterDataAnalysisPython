@@ -1,0 +1,33 @@
+{% include "header.html" %}
+{% block content %}
+
+ <div class="custom-tab">
+     <a  href="{{ url_for('sentiment') }}"><button class="tablinks">Sentiment analysis</button></a>
+     <a  href="{{ url_for('favorites_retweets') }}"> <button class="tablinks">Preliminary Analysis</button></a>
+     <a  href="{{ url_for('follower_s') }}"> <button class="tablinks active">Network Graph</button></a>
+     <a  href="{{ url_for('tweets_count') }}"> <button class="tablinks">Home Timeline Analysis</button></a>
+     <a  href="{{ url_for('wordcloud') }}"><button class="tablinks">WordCloud</button></a>
+
+</div>
+
+<div id="v-followers" class="custom-tabcontent">
+
+  <div class="row mt-5">
+      <form method="POST">
+        <div class="mb-3 mt-3">
+          <input type="text" class="form-control" id="users" placeholder="Username to fetch followers" name="users" required>
+        </div>
+          <div class="text-center">
+            <button type="example_a" id="wordcloud" class="btn btn-dark mx-auto">Graph</button>
+          </div>
+      </form>
+  </div>
+{% if img_data %}
+    <div class="mx-auto text-center" id="word_cloud">
+  <img class="img-fluid wordcloud" src="data:image/jpeg;base64,{{ img_data }}"/>
+    </div>
+{% endif %}
+</div>
+
+{% endblock %}
+{% include "footer.html" %}

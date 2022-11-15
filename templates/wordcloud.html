@@ -1,0 +1,55 @@
+{% include "header.html" %}
+{% block content %}
+
+ <div class="custom-tab">
+     <a  href="{{ url_for('sentiment') }}"><button class="tablinks">Sentiment analysis</button></a>
+     <a  href="{{ url_for('favorites_retweets') }}"> <button class="tablinks">Preliminary Analysis</button></a>
+     <a  href="{{ url_for('follower_s') }}"> <button class="tablinks">Network Graph</button></a>
+     <a  href="{{ url_for('tweets_count') }}"> <button class="tablinks">Home Timeline Analysis</button></a>
+     <a  href="{{ url_for('wordcloud') }}"><button class="tablinks active">WordCloud</button></a>
+</div>
+<div id="v-wordcloud" class="custom-tabcontent">
+
+  <div class="row mt-5">
+      <form method="POST">
+        <div class="mb-3 mt-3">
+          <input type="text" class="form-control" id="word" placeholder="Search for a word, username ...etc." name="word" required>
+        </div>
+          <div class="text-center">
+            <button type="example_a" id="wordcloud" class="btn btn-dark mx-auto">Generate word cloud</button>
+          </div>
+      </form>
+  </div>
+
+{% if img_data %}
+    <div class="mx-auto text-center mt-3" id="word_cloud">
+            <h5>The generated wordcloud for "{{search}}" is</h5>
+         <img class="wordcloud" src="data:image/jpeg;base64,{{ img_data }}"/>
+    </div>
+
+
+<div class="custom-table-container mt-5 mb-5">
+              <ul class="responsive-table">
+                <li class="table-header">
+                  <div class="col col-12">Tweets containing the word "{{search}}" are as follows</div>
+                </li>
+                  {% for i in range(0,len) %}
+                     <li class="table-row">
+
+                        <div class="col col-12">
+                            <a href="https://twitter.com/twitter/statuses/{{tweets[i].id}}" class="tweet_link" target="_blank">{{tweets[i].text.lower()}}</a>
+                        </div>
+
+                </li>
+                     </li>
+                  {% endfor %}
+              </ul>
+            </div>
+
+</div>
+
+{% endif %}
+
+
+{% endblock %}
+{% include "footer.html" %}
